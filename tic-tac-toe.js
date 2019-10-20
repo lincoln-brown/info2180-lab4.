@@ -3,7 +3,8 @@ function Main(){
 	
 var board = Array(9);
 var divs=document.querySelector('#board');
-var turn = "X";
+var status=document.querySelector('#status');
+var turn = "X";// x always starts first
 var winCombo = new Array([0, 1, 2],
 	[3, 4, 5],
 	[6, 7, 8],
@@ -11,16 +12,16 @@ var winCombo = new Array([0, 1, 2],
 	[1, 4, 7],
 	[2, 5, 8],
 	[0, 4, 8],
-	[6, 4, 2]);
+	[6, 4, 2]);// declaring all posible win conditions
 
 for(i=0; i<divs.children.length; i++){
-divs.children[i].id=i.toString();
+divs.children[i].id=i.toString();// applying id names to each square on the board so that they can be individually targeted
 
 }
 
 for(i=0; i<divs.children.length; i++){
 
-divs.children[i].classList.add("square");
+divs.children[i].classList.add("square");//laying out board 
 divs.children[i].onclick=function(){
 	
 	
@@ -30,19 +31,29 @@ if (turn==="X"||turn==="x"){
 		this.innerHTML = "<strong>X<strong>";
 		this.classList.remove('O','X');
 		this.classList.add('X');
-		win(board,winCombo,"X");
+		var winner = win(board,winCombo,"X");
+		if (winner == true){
+			status.innerHTML="<strong>Congratulations! X is the Winner!<strong>"
+			status.classList.add('you-won');
+			}
 		turn="O";
 }else{
 	board[this.id]="O";
 	this.innerHTML = "<strong>O<strong>";
 	this.classList.remove('O','X');
 	this.classList.add('O');
-	win(board,winCombo,"O");
+	var winner = win(board,winCombo,"O");
+	if (winner == true){
+			status.innerHTML="<strong>Congratulations! O is the Winner!<strong>"
+			status.classList.add('you-won');
+
+		}
+		turn="O"
 	turn="X";
 
 }
 	
-console.log(board[0]);
+
 
 };	//end of on click function 
 
@@ -68,7 +79,8 @@ alert(divs.children[1].children[0].textContent);
 function win(brd,WC,turn){
 	for(i=0; i<WC.length; i++){
 		if (brd[WC[i][0]]===turn && brd[WC[i][1]]===turn && brd[WC[i][2]]=== turn){
-			console.log( turn +" is the winner");
+			
+			return true;
 			
 
 	}
