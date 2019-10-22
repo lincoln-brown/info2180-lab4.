@@ -2,6 +2,7 @@ function Main(){
 
 	
 var board = Array(9);
+var btn = document.querySelector("button");
 var divs=document.querySelector('#board');
 var status=document.querySelector('#status');
 var turn = "X";// x always starts first
@@ -25,7 +26,12 @@ divs.children[i].classList.add("square");//laying out board
 divs.children[i].onclick=function(){
 	
 	
+if(played(this.id,board)){	
 	
+
+}else{
+
+
 if (turn==="X"||turn==="x"){
 		board[this.id]="X";
 		this.innerHTML = "<strong>X<strong>";
@@ -48,9 +54,9 @@ if (turn==="X"||turn==="x"){
 			status.classList.add('you-won');
 
 		}
-		turn="O"
 	turn="X";
 
+} 
 }
 	
 
@@ -71,9 +77,21 @@ this.classList.remove('hover');
 		
 }// end of for loop 
 
- var btn = document.querySelector("button");
+ 
  btn.onclick= function(){
-alert(divs.children[1].children[0].textContent);
+ 	window.location.reload();
+Main();
+}
+function played(id,board){
+	 for(i=0; i<board.length; i++){
+	 	if  (board[id]==='X'||board[id]==='O'){
+	 		return true;
+	 	}
+
+
+	 }
+
+return false;
 }
 
 function win(brd,WC,turn){
@@ -90,7 +108,7 @@ function win(brd,WC,turn){
 
 
 
-alert("DOMContentLoaded.");
+//alert("DOMContentLoaded.");
 }
 document.addEventListener("DOMContentLoaded",Main);
 
